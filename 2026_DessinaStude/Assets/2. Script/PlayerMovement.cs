@@ -12,13 +12,20 @@ public class PlayerMovement : MonoBehaviour
     public float moveSpeed = 5f;    //플레이어 이동속도
 
     public float minX = -14f;   //플레이어가 움직일 수 있는 범위 (x = -14 ~ 14 && z = -14 ~ 14)
-    public float maxX = 14f;
-    public float minZ = -14f;
+    public float maxX = 14f;    
+    public float minZ = -14f;   
     public float maxZ = 14f;
 
     /// <summary>
     /// | private | ====================
     /// </summary>
+
+    private PlayerHealth playerHealth;
+
+    private void Start()
+    {
+        playerHealth = GetComponent<PlayerHealth>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -27,10 +34,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     /// <summary>
-    /// 플레이어의 움직임을 담당함.
+    /// === | 플레이어의 움직임을 담당함. | ===
     /// </summary>
     private void Move()
     {
+        if (playerHealth != null && playerHealth.isDead) return;
+
         float x = Input.GetAxisRaw("Horizontal");   //수평이동 x좌표
         float z = Input.GetAxisRaw("Vertical");     //수직이동 z좌표
 
